@@ -1,75 +1,52 @@
-# ---> Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
+# JVM crash related
+core.*
+hs_err_pid*
 
-# ---> Eclipse
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
+# Intellij
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
 .settings/
-.loadpath
-.recommenders
 
-# External tool builders
-.externalToolBuilders/
+# netbeans
+nbproject/
+nbactions.xml
 
-# Locally stored "Eclipse launch configurations"
-*.launch
+# Gradle
+!gradle-wrapper.jar
+.gradle/
+build/
+*/build/
 
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
+# we use maven!
+build.xml
 
-# CDT-specific (C/C++ Development Tooling)
-.cproject
+# Maven
+log/
+target/
+dependency-reduced-pom.xml
 
-# CDT- autotools
-.autotools
+# various other potential build files
+build/
+bin/
+dist/
+manifest.mf
 
-# Java annotation processor (APT)
-.factorypath
+# Mac
+.DS_Store/
+.DS_Store
 
-# PDT-specific (PHP Development Tools)
-.buildpath
+# vim
+.*.sw[a-p]
 
-# sbteclipse plugin
-.target
+# Linux temp files
+*~
 
-# Tern plugin
-.tern-project
-
-# TeXlipse plugin
-.texlipse
-
-# STS (Spring Tool Suite)
-.springBeans
-
-# Code Recommenders
-.recommenders/
-
-# Annotation Processing
-.apt_generated/
-.apt_generated_test/
-
-# Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
-
-# Uncomment this line if you wish to ignore the project description file.
-# Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
-
+# other stuff
+run/

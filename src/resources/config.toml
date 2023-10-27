@@ -21,7 +21,7 @@ line-text = "§7> [%1$s]%2$s§7: %3$s"
 #悬浮显示文字
 #支持列表/字符串
 hover-text = ["§6时间: %4$s"]
- 
+
 #日期格式
 date-format = "yyyy-MM-dd HH:mm:ss"
 
@@ -35,20 +35,20 @@ suffix = "§7> 以上是 %s 条聊天记录"
 #符合条件的消息将不记录
 [msgFilter]
 #前缀匹配 - 消息中以下列开头的将不会被记录 
-prefix  = ["/"]
+prefix = ["/"]
 #后缀匹配 - 消息中以下列结尾的将不会被记录
-suffix  = []
+suffix = []
 #包含匹配 - 消息中包含下列字符串的将不会被记录
 contain = []
 #全字匹配 - 消息等于下列字符串的将不会被记录
-equals  = []
+equals = []
 
 
 #玩家过滤器
 #符合条件的玩家将不记录
 [playerFilter]
 #全字匹配 - 玩家名在此列出的将不会被记录
-name    = []
+name = []
 #包含匹配 - 玩家名包含下列字符串的将不会被记录
 contain = []
 
@@ -57,7 +57,7 @@ contain = []
 #符合条件的服务器将不记录
 [serverFilter]
 #全字匹配 - 服务器名在此列出的将不会被记录
-name    = []
+name = []
 #包含匹配 - 服务器名包含下列字符串的将不会被记录
 contain = []
 
@@ -65,14 +65,14 @@ contain = []
 #不显示的玩家
 #符合条件的玩家将不会被展示聊天记录
 [not-show-playerFilter]
-name    = []
+name = []
 contain = []
 
 
 #不显示的服务器
 #当玩家登录于符合条件的服务器将不会被展示聊天记录
 [not-show-serverFilter]
-name    = []
+name = []
 contain = []
 
 
