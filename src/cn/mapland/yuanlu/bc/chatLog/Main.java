@@ -54,10 +54,12 @@ import java.util.regex.Pattern;
 @Plugin(
         id = "yuanluchatlog",
         name = "元路聊天记录插件",
+        version = "velocity-1.1.4",
         authors = "yuanlu",
         url = "https://git.yuanlu.bid/yuanlu/yuanluBCchatLog/src/branch/Velocity",
         description = "记录玩家的聊天记录"
 )
+
 public class Main {
     /** 已经展示过聊天记录的玩家 */
     private static final Set<String> SHOWED_PLAYER = new ConcurrentSkipListSet<>();
