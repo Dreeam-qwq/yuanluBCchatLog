@@ -405,10 +405,10 @@ public class Main {
          * @return 文字
          */
         public Component build(Object... data) {
-            TextComponent component = Component.text(String.format(line, data));
+            TextComponent.Builder component = Component.text().append(Component.text(String.format(line, data)));
             component.hoverEvent(HoverEvent.showText(Component.text(String.format(hover, data))));
 
-            return component;
+            return component.build();
         }
 
         /**
