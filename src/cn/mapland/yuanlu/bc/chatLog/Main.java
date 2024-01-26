@@ -215,7 +215,7 @@ public class Main {
         Toml toml = config = loadConf("config");
         int log_num = Tool.get("log-num", 50L, toml::getLong).intValue();
         String line_text = Tool.getConf("line-text", "§7> [%1$s]%2$s§7: %3$s");
-        String hover_text = Tool.getConf("line-text", null);
+        String hover_text = Tool.getConf("hover_text", "§6时间: %4$s");
         String date_format = Tool.get("date-format", "yyyy-MM-dd HH:mm:ss", toml::getString);
         prefix = Tool.getConf("prefix", null);
         suffix = Tool.getConf("suffix", null);
