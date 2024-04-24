@@ -1,7 +1,6 @@
-package cn.mapland.yuanlu.bc.chatLog;
+package bid.yuanlu.chatLog;
 
 import lombok.NonNull;
-import lombok.val;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -71,7 +70,7 @@ public final class ObjLogger<E> {
     public Object[] read() {
         lock.readLock().lock();
         try {
-            val index = this.index;
+            var index = this.index;
             if (logs[logs.length - 1] == null) {// 未记录满1次循环
                 return Arrays.copyOf(logs, index);
             }
@@ -95,7 +94,7 @@ public final class ObjLogger<E> {
     public <T> T[] read(@NonNull T[] a) {
         lock.readLock().lock();
         try {
-            val index = this.index;
+            var index = this.index;
             if (logs[logs.length - 1] == null) {// 未记录满1次循环
                 return (T[]) Arrays.copyOf(logs, index, a.getClass());
             }

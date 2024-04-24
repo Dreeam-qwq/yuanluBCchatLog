@@ -3,11 +3,10 @@
  * user: yuanlu<br>
  * date: 星期日 08 12 2019
  */
-package cn.mapland.yuanlu.bc.chatLog;
+package bid.yuanlu.chatLog;
 
 import com.moandjiezana.toml.Toml;
 import lombok.NonNull;
-import lombok.val;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -71,7 +70,7 @@ public final class Tool {
         try {
             obj = TOML_METHOD.invoke(toml, key);
         } catch (Throwable e) {
-            Main.getMain().logger.error("无法调用 " + Toml.class.getName() + ".get(String)", e);
+            Main.getMain().logger.error("无法调用 {}.get(String)", Toml.class.getName(), e);
             return def;
         }
 
@@ -97,7 +96,7 @@ public final class Tool {
      * @throws IOException IO错误
      */
     public static ByteArrayInputStream toByte(InputStream in) throws IOException {
-        val out = new ByteArrayOutputStream(Math.max(in.available(), 32));
+        var out = new ByteArrayOutputStream(Math.max(in.available(), 32));
         byte[] buf = new byte[1024];
         int len;
         while ((len = in.read(buf)) > 0) out.write(buf, 0, len);

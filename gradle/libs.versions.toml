@@ -1,0 +1,9 @@
+[versions]
+com-velocitypowered-velocity-api = "3.3.0-SNAPSHOT"
+org-bstats-bstats-velocity = "3.0.2"
+org-projectlombok-lombok = "1.18.32"
+
+[libraries]
+com-velocitypowered-velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "com-velocitypowered-velocity-api" }
+org-bstats-bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "org-bstats-bstats-velocity" }
+org-projectlombok-lombok = { module = "org.projectlombok:lombok", version.ref = "org-projectlombok-lombok" }

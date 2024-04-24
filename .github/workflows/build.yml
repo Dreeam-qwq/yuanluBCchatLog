@@ -1,7 +1,9 @@
-name: Build yuanluBCchatLog
+name: Build yuanluChatLog
+
 on:
   push:
     branches: [ Velocity ]
+
 jobs:
   build:
     name: Build
@@ -14,13 +16,15 @@ jobs:
           java-version: 17
           distribution: temurin
 
-      - name: Build with Maven
-        run: mvn clean package
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build yuanluChatLog
+        run: ./gradlew build
 
-      - name: Release yuanluBCchatLog
+      - name: Release yuanluChatLog
         uses: marvinpinto/action-automatic-releases@master
         with:
-          title: "yuanluBCchatLog v1.1.4"
+          title: "yuanluChatLog v1.1.5"
           automatic_release_tag: "build-velocity"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: "target/yuanluchatlog-velocity-*.jar"

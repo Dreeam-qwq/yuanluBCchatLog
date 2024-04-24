@@ -1,8 +1,8 @@
-package cn.mapland.yuanlu.bc.chatLog;
+package bid.yuanlu.chatLog;
 
-import cn.mapland.yuanlu.bc.chatLog.Filter.PlayerFilter;
-import cn.mapland.yuanlu.bc.chatLog.Filter.ServerFilter;
-import cn.mapland.yuanlu.bc.chatLog.Filter.StringFilter;
+import bid.yuanlu.chatLog.Filter.PlayerFilter;
+import bid.yuanlu.chatLog.Filter.ServerFilter;
+import bid.yuanlu.chatLog.Filter.StringFilter;
 import com.google.common.base.Charsets;
 import com.google.inject.Inject;
 import com.moandjiezana.toml.Toml;
@@ -23,7 +23,6 @@ import com.velocitypowered.api.proxy.server.ServerInfo;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -49,30 +48,32 @@ import java.util.regex.Pattern;
  * 聊天记录
  *
  * @author yuanlu
- *
  */
 @Plugin(
         id = "yuanluchatlog",
         name = "元路聊天记录插件",
-        version = "velocity-1.1.4",
+        version = "velocity-1.1.5",
         authors = "yuanlu",
         url = "https://git.yuanlu.bid/yuanlu/yuanluBCchatLog/src/branch/Velocity",
         description = "记录玩家的聊天记录"
 )
-
 public class Main {
-    /** 已经展示过聊天记录的玩家 */
+    /**
+     * 已经展示过聊天记录的玩家
+     */
     private static final Set<String> SHOWED_PLAYER = new ConcurrentSkipListSet<>();
-    /** 去除颜色码 */
+    /**
+     * 去除颜色码
+     */
     private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + '&' + "[0-9A-FK-OR]");
-    /** bstats: 聊天统计 */
+    /**
+     * bstats: 聊天统计
+     */
     private static final AtomicInteger MSG_COUNT = new AtomicInteger();
     /**
      * main
      * -- GETTER --
      *
-     * @return the main
-
      */
     @Getter
     private static Main main;
@@ -96,32 +97,55 @@ public class Main {
      * class loader
      */
     final ClassLoader classLoader;
-    /** 配置文件 */
+    /**
+     * 配置文件
+     */
     Toml config;
-    /** 聊天记录前缀 */
+    /**
+     * 聊天记录前缀
+     */
     private String prefix;
-    /** 聊天记录后缀 */
+    /**
+     * 聊天记录后缀
+     */
     private String suffix;
-    /** 过滤器 */
+    /**
+     * 过滤器
+     */
     private Filter<Player> playerFilter;
-    /** 过滤器 */
+    /**
+     * 过滤器
+     */
     private Filter<ServerInfo> serverFilter;
-    /** 过滤器 */
+    /**
+     * 过滤器
+     */
     private Filter<String> messageFilter;
-    /** 过滤器 */
+    /**
+     * 过滤器
+     */
     private Filter<Player> nsplayerFilter;
-    /** 过滤器 */
+    /**
+     * 过滤器
+     */
     private Filter<ServerInfo> nsserverFilter;
-    /** 文字组件构建器 */
+    /**
+     * 文字组件构建器
+     */
     private MsgBuilder mb;
-    /** 记录器 */
+    /**
+     * 记录器
+     */
     private ObjLogger<Msg> chatLogger;
-    /** 重载次数 */
+    /**
+     * 重载次数
+     */
     private int reload_count;
-    /** 延时毫秒数 */
+    /**
+     * 延时毫秒数
+     */
     private long delay;
 
-    @SuppressWarnings("javadoc")
     @Inject
     public Main(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory) {
         main = this;
@@ -232,15 +256,17 @@ public class Main {
         mb = new MsgBuilder(line_text, hover_text, date_format);
     }
 
-    /** bstats */
+    /**
+     * bstats
+     */
     private void bstats() {
         Metrics metrics = metricsFactory.make(this, 14424);
 
         metrics.addCustomChart(new SingleLineChart("logs_max", () -> chatLogger == null ? 0 : chatLogger.getNum()));
         metrics.addCustomChart(new SingleLineChart("msgs", () -> MSG_COUNT.getAndSet(0)));
         metrics.addCustomChart(new SimplePie("pls_count", () -> {
-            val count = server.getPluginManager().getPlugins().stream()//
-                    .filter(p -> p.getDescription().getAuthors().contains("yuanlu"))//
+            var count = server.getPluginManager().getPlugins().stream()
+                    .filter(p -> p.getDescription().getAuthors().contains("yuanlu"))
                     .count();
             return Long.toString(count);
         }));
@@ -259,7 +285,7 @@ public class Main {
      * @throws IllegalStateException 无法解析
      */
     private Toml loadConf(@NonNull String name) throws IllegalStateException {
-        val tomlPath = dataDirectory.resolve(name + ".toml");
+        var tomlPath = dataDirectory.resolve(name + ".toml");
         try {
             Files.createDirectories(tomlPath.getParent());
         } catch (Throwable e1) {
@@ -269,7 +295,7 @@ public class Main {
         // find .toml
         try {
             if (Files.exists(tomlPath)) {
-                try (val in = Files.newBufferedReader(tomlPath, Charsets.UTF_8)) {
+                try (var in = Files.newBufferedReader(tomlPath, Charsets.UTF_8)) {
                     StringJoiner sj = new StringJoiner("\n");
                     in.lines().forEach(sj::add);
                     return new Toml().read(sj.toString());
@@ -282,15 +308,15 @@ public class Main {
         }
 
         // trans .yaml
-        val yamlPath = dataDirectory.resolve(name + ".yml");
+        var yamlPath = dataDirectory.resolve(name + ".yml");
         try {
             if (Files.exists(yamlPath)) {
                 Object yamlObj;
-                try (val in = Files.newBufferedReader(yamlPath, Charsets.UTF_8)) {
+                try (var in = Files.newBufferedReader(yamlPath, Charsets.UTF_8)) {
                     yamlObj = new Yaml().load(in);
                 }
-                val tomlStr = new TomlWriter().write(yamlObj);
-                try (val out = Files.newOutputStream(tomlPath)) {
+                var tomlStr = new TomlWriter().write(yamlObj);
+                try (var out = Files.newOutputStream(tomlPath)) {
                     out.write(tomlStr.getBytes(Charsets.UTF_8));
                 }
                 return new Toml().read(tomlStr);
@@ -304,15 +330,14 @@ public class Main {
         // load inner .toml
         try {
             @lombok.Cleanup //
-            val in = classLoader.getResourceAsStream(name + ".toml");
+            var in = classLoader.getResourceAsStream(name + ".toml");
             if (in != null) {
-                val bin = Tool.toByte(in);
+                var bin = Tool.toByte(in);
                 bin.mark(0);
                 Files.copy(bin, tomlPath, StandardCopyOption.REPLACE_EXISTING);
                 bin.reset();
-                val toml = new Toml().read(bin);
 
-                return toml;
+                return new Toml().read(bin);
             }
         } catch (IllegalStateException e) {
             throw e;
@@ -381,17 +406,21 @@ public class Main {
      * 消息组件构建器
      *
      * @author yuanlu
-     *
      */
     public static final class MsgBuilder {
-        /** 日期格式化 */
+        /**
+         * 日期格式化
+         */
         private final SimpleDateFormat sdf;
-        /** 显示文字 */
+        /**
+         * 显示文字
+         */
         private final String line;
-        /** 悬浮文字 */
+        /**
+         * 悬浮文字
+         */
         private final String hover;
 
-        @SuppressWarnings("javadoc")
         public MsgBuilder(@NonNull String lineText, @NonNull String hoverText, @NonNull String dateFormat) {
             line = lineText;
             hover = hoverText;
@@ -429,26 +458,39 @@ public class Main {
      * 一条信息
      *
      * @author yuanlu
-     *
      */
     @RequiredArgsConstructor
     public final class Msg {
-        /** 信息 */
+        /**
+         * 信息
+         */
         private final String msg;
-        /** 时间 */
+        /**
+         * 时间
+         */
         private final long time;
-        /** 玩家名称 */
+        /**
+         * 玩家名称
+         */
         private final String playerName;
-        /** 服务器名称 */
+        /**
+         * 服务器名称
+         */
         private final String serverName;
 
-        /** 文字组件缓存 */
+        /**
+         * 文字组件缓存
+         */
         private transient Component component;
 
-        /** 文字组件缓存更新时重载次数 */
+        /**
+         * 文字组件缓存更新时重载次数
+         */
         private transient int rc = reload_count;
 
-        /** @return 文字组件 */
+        /**
+         * @return 文字组件
+         */
         public synchronized Component getBaseComponent() {
             int rc, reload_count;
             Component component;

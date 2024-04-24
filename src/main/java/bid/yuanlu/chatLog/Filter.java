@@ -1,4 +1,4 @@
-package cn.mapland.yuanlu.bc.chatLog;
+package bid.yuanlu.chatLog;
 
 import com.moandjiezana.toml.Toml;
 import com.velocitypowered.api.proxy.Player;
