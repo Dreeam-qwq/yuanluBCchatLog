@@ -27,5 +27,5 @@ jobs:
           title: "yuanluChatLog v1.1.5"
           automatic_release_tag: "build-velocity"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          files: "target/yuanluchatlog-velocity-*.jar"
+          files: "build/libs/yuanluchatlog-velocity-*.jar"
           prerelease: false
